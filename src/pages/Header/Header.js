@@ -1,69 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import { Homepage } from '../Homepage/Homepage';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
+import Homepage from '../Homepage/Homepage';
 import { Category } from '../Category/Category';
 import { World } from '../World/World';
 import { Post } from '../Post/Post';
 import './Header.scss';
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`nav-tabpanel-${index}`}
-      aria-labelledby={`nav-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <div>{children}</div>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
-  };
-}
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    // backgroundColor: theme.palette.background.paper,
-  },
-}));
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default function NavTabs() {
-  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -71,32 +15,27 @@ export default function NavTabs() {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          // variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-        >
-          <LinkTab label="Home" href="/" {...a11yProps(0)} />
-          <LinkTab label="World" href="/world" {...a11yProps(1)} />
-          <LinkTab label="Category" href="/category" {...a11yProps(2)} />
-          <LinkTab label="Post" href="/post" {...a11yProps(3)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <Homepage />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <World />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Category />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <Post />
-      </TabPanel>
-    </div>
+    <Router>
+      <div>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+          >
+            <Tab label="Home" component={Link} to="/" />
+            <Tab label="World" component={Link} to="/world" />
+            <Tab label="Category" component={Link} to="/category" />
+            <Tab label="Post" component={Link} to="/post" />
+          </Tabs>
+        </AppBar>
+        <div className="component">
+          <Route exact path="/" component={Homepage} />
+          <Route path="/world" component={World} />
+          <Route path="/category" component={Category} />
+          <Route path="/post" component={Post} />
+        </div>
+      </div>
+    </Router>
   );
 }
