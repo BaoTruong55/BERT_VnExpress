@@ -8,7 +8,8 @@ import Box from '@material-ui/core/Box';
 import { Homepage } from '../Homepage/Homepage';
 import { Category } from '../Category/Category';
 import { World } from '../World/World';
-
+import { Post } from '../Post/Post';
+import './Header.scss';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,7 +58,7 @@ function LinkTab(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -71,9 +72,9 @@ export default function NavTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="default">
         <Tabs
-          variant="fullWidth"
+          // variant="fullWidth"
           value={value}
           onChange={handleChange}
           aria-label="nav tabs example"
@@ -92,6 +93,9 @@ export default function NavTabs() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Category />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Post />
       </TabPanel>
     </div>
   );
