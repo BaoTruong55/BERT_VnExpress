@@ -15,7 +15,7 @@
     "react-chartjs-2": "^2.9.0",
     "react-date-range": "^1.0.3",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-swipeable-views": "^0.13.9"
   },
   "scripts": {
@@ -43,8 +43,8 @@
   "devDependencies": {
     "bootstrap": "^4.5.0",
     "eslint": "^6.6.0",
-    "less": "^3.11.1",
-    "node-sass": "^4.14.1",
+    "less": "^3.13.1",
+    "node-sass": "^9.0.0",
     "prettier": "^2.0.5",
     "react-router-dom": "^5.2.0"
   }
